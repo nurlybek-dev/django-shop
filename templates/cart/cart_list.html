@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}корзина{% endblock title %}
+{% block content %}
+
+{% if cart.count == 0 %}
+<h2>Ваша корзина пуста.</h2>
+{% else %}
+<h2>В вашей корзине {{ cart.count }} {% if cart.count == 1 %}товар{% else %}товара{% endif %}</h2>
+
+<div class="row">
+    <div class="col-12 col-lg-9">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Название</td>
+                        <td>Цена</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    <tr>
+                        <td>
+                            <img src="{{ item.product.get_image_url }}" alt="{{ item.product.name }}" width="200" height="200">
+                        </td>
+                        <td><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
+                        <td>{{ item.product.price }}</td>
+                        <td><a href="{% url 'cart_delete' item.id %}" class="text-danger">Удалить</a></td>
+                    </tr>
+                {% empty %}
+                <p>Вы еще не добовляли товар в свою корзину.</p>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>{{ total_price }}</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 col-lg-3">
+        <h2>Оформить заказ</h2>
+        <form method="post" action="{% url 'create_order' %}">
+            {% csrf_token %}
+            {{ order_form|crispy }}
+            <button type="submit" class="btn btn-success mt-2">Оформить</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

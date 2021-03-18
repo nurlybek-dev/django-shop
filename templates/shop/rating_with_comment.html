@@ -1,0 +1,10 @@
+{% load static %}
+<p>
+    {% for _ in fill %}
+    <i class="bi bi-star-fill text-warning"></i>
+    {% endfor %}
+    {% for _ in empty %}
+    <i class="bi bi-star"></i>
+    {% endfor %}
+    <a href="{{ url }}" class="ms-1">({{ count }} {% if count == 1 %}отзыв{%else%}отзыва{% endif %})</a>
+</p>

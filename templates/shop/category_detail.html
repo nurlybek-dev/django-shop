@@ -1,0 +1,23 @@
+<!-- templates/shop/shop_list.html -->
+{% extends 'base.html' %}
+{% load shop_extras %}
+{% block title %}Магазин - {{ category.name }}{% endblock title %}
+{% block content %}
+<section class="album py-3 mb-5">
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'home' %}">Вернуться</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></h2>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        {% for product in category.products.all %}
+        {% include 'shop/product_card.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

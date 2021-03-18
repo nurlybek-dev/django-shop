@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Отменить заказ</h1>
+<form action="" method="post">{% csrf_token %}
+    <p>Вы уверены что хотите отменить заказ?</p>
+    <button class="btn btn-danger ml-2" type="submit">Отменить</button>
+</form>
+{% endblock content %}
