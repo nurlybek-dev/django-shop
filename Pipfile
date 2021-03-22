@@ -11,6 +11,8 @@ environs = {extras = ["django"], version = "*"}
 psycopg2-binary = "*"
 whitenoise = "*"
 gunicorn = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 
