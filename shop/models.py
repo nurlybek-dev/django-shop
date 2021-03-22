@@ -4,6 +4,9 @@ from django.urls import reverse
 from django.db import models
 from django.conf import settings
 
+import hashlib
+import time
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -17,13 +20,18 @@ class Category(models.Model):
     def get_head_products(self):
         return self.products.all()[:5]
 
+def product_cover_path(instance, filename):
+    hash_object  = hashlib.md5(filename.encode() + str(time.time()).encode())
+    name = hash_object.hexdigest()
+    format = filename.split('.')[-1]
+    return 'covers/{0}.{1}'.format(name, format)
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     price = models.IntegerField(default=0)
     description = models.TextField(default='', blank=True, null=False)
-    cover = models.ImageField(upload_to='covers/', blank=True)
+    cover = models.ImageField(upload_to=product_cover_path, blank=True)
 
     def __str__(self):
         return self.name
