@@ -18,9 +18,9 @@
                 </thead>
                 <tbody>
                     {% for item in order.products.all %}
-                    <tr>
-                        <td>
-                            <img src="{{ item.product.get_image_url }}" alt="{{ item.product.name }}" width="200" height="200">
+                    <tr style="max-height: 200px;">
+                        <td class="bg-white text-center" style="width: 200px;">
+                            <img src="{{ item.product.get_image_url }}" alt="{{ item.product.name }}" style="max-height: 200px; max-width: 200px;">
                         </td>
                         <td><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
                         <td>{{ item.product.price }}</td>
@@ -39,6 +39,6 @@
     </div>
 </div>
 {% if order.status == 1 %}
-    <a href="{% url 'order_cancel' order.id %}" class="btn btn-danger">Отменить заказ</a>
+    <a href="{% url 'order_cancel' order.id %}" class="btn btn-danger mb-2">Отменить заказ</a>
 {% endif %}
 {% endblock %}

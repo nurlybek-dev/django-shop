@@ -43,7 +43,7 @@ class Product(models.Model):
         if self.cover:
             return self.cover.url
         else:
-            return settings.STATIC_URL + 'images/no_image.jpg'
+            return settings.STATIC_URL + 'images/no-photo.png'
 
     def get_avg_rating(self):
         avg = self.reviews.aggregate(Avg('rating'))['rating__avg']
